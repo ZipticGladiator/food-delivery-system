@@ -1,0 +1,91 @@
+# Class Definitions
+
+class Customer:
+    attributes:
+        - name
+        - address
+        - city
+
+class Restaurant:
+    attributes:
+        - name
+        - location
+
+class Driver:
+    attributes:
+        - name
+        - area
+        - load
+
+# Functionality
+
+# Function to capture customer details
+function captureCustomerDetails():
+    print("Enter customer details:")
+    customerName = input("Name: ")
+    customerAddress = input("Address: ")
+    customerCity = input("City: ")
+    return Customer(customerName, customerAddress, customerCity)
+
+# Function to capture restaurant details
+function captureRestaurantDetails():
+    print("Enter restaurant details:")
+    restaurantName = input("Name: ")
+    restaurantLocation = input("Location: ")
+    return Restaurant(restaurantName, restaurantLocation)
+
+# Function to select a restaurant and place an order
+function selectRestaurantAndPlaceOrder(customer):
+    restaurant = selectRestaurant()
+    orderedDishes = orderDishes(restaurant)
+    selectedDriver = findDriver(customer.city)
+    generateInvoice(customer, restaurant, selectedDriver, orderedDishes)
+
+# Function to select a restaurant
+function selectRestaurant():
+    # In a real system, you might have a list of available restaurants.
+    # For simplicity, let's use one hardcoded restaurant.
+    return Restaurant("Sample Restaurant", "Sample Location")
+
+# Function to order dishes
+function orderDishes(restaurant):
+    menu = createMenu()  # Create a menu with dish names and prices
+    orderedDishes = {}
+    
+    while True:
+        print("\nSelect a dish (type 'done' to finish):")
+        for dish, price in menu.items():
+            print(f"{dish} - ${price}")
+
+        selectedDish = input()
+
+        if selectedDish.lower() == 'done':
+            break
+
+        if selectedDish in menu:
+            quantity = int(input(f"Enter quantity for {selectedDish}: "))
+            orderedDishes[selectedDish] = quantity
+        else:
+            print("Invalid dish selection. Please try again.")
+
+    return orderedDishes
+
+# Function to create a menu
+function createMenu():
+    # For simplicity, let's create a hardcoded menu.
+    return {"Dish 1": 10.0, "Dish 2": 15.0, "Dish 3": 8.0}
+
+# Function to find a driver
+function findDriver(customerCity):
+    # Read drivers from drivers.txt and find the driver with the smallest load in the correct area
+    # ... (implementation details)
+
+# Function to generate an invoice
+function generateInvoice(customer, restaurant, driver, orderedDishes):
+    # Generate invoice with dish details and total amount
+    # ... (implementation details)
+
+# Main Program
+
+customer = captureCustomerDetails()
+selectRestaurantAndPlaceOrder(customer)
